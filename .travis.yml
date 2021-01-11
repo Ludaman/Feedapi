@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+  - 13
+
+services:
+  - docker
+
+# Pre-testing installs
+install:
+  - echo "nothing needs to be installed"
+
+# Scripts to be run such as tests
+before_script:
+  - echo "no tests"
+#Need to have created a DockerHub location prior to this step succeeding
+script:
+  - docker --version # print the version for logging
+  - docker build -t feed .
+  - docker tag feed ludaman64/feedapi:latest
+
+#Need to have set up these variables in Dockerhub prior to this step succeeding
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push ludaman64/feedapi
+
