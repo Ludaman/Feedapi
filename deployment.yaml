@@ -5,7 +5,7 @@ metadata:
   labels:
     app: feed
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: feed
@@ -19,7 +19,7 @@ spec:
         image: ludaman64/feedapi
         envFrom:
         - secretRef:
-          name: configsecrets
+            name: configsecrets
         ports:
         - containerPort: 8080
 
